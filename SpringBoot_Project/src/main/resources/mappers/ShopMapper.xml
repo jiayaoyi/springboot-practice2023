@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seiryo.springboot_project.dao.ShopMapper">
+    <select id="queryAllCommodityInfoByPage" resultType="com.seiryo.springboot_project.pojo.Tb_shopinfo">
+        SELECT * FROM tb_shopinfo LIMIT #{startIndex}, #{pageSize}
+    </select>
+
+    <select id="countCommodity" resultType="int">
+        SELECT COUNT(*) FROM tb_shopinfo
+    </select>
+
+    <select id="queryOrderById" resultMap="orderResultMap">
+        SELECT * FROM tb_order WHERE orderId = #{orderId}
+    </select>
+
+    <resultMap id="orderResultMap" type="com.seiryo.springboot_project.pojo.Tb_order">
+        <id column="ID" property="ID" />
+        <result column="orderId" property="orderId" />
+        <result column="createDtm" property="createDtm" />
+        <result column="state" property="state" />
+    </resultMap>
+
+<!--查询商品详细信息方法-->
+    <select id="queryShopById" resultMap="shopInfoResultMap">
+        SELECT * FROM tb_shopInfo WHERE shopId = #{shopId}
+    </select>
+    <resultMap id="shopInfoResultMap" type="com.seiryo.springboot_project.pojo.Tb_shopinfo">
+        <id column="ID" property="id"/>
+        <result column="shopId" property="shopId"/>
+        <result column="shopName" property="shopName"/>
+        <result column="price" property="price"/>
+        <result column="oldPrice" property="oldPrice"/>
+        <result column="descr" property="descr"/>
+        <result column="insertDtm" property="insertDtm"/>
+    </resultMap>
+</mapper>

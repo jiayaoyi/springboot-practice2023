@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seiryo.springboot_project.dao.OrderMapper">
+
+
+<!--   生成订单  -->
+    <insert id="insertNewOrder" parameterType="com.seiryo.springboot_project.pojo.Tb_order">
+        INSERT INTO tb_order (orderId,createDtm,state)
+        VALUES (#{orderId},#{createDtm},#{state})
+    </insert>
+
+    <insert id="insertNewOrderDetail" parameterType="map">
+        INSERT INTO tb_orderDetail(orderId, product_id, product_name, price, quantity, total_amount)
+        SELECT #{orderId}, product_id, product_name, price, quantity, total_amount
+        FROM tb_cartInfo
+        WHERE user_name = #{userName}
+    </insert>
+
+    <select id="selectAllOrderId" resultType="String">
+        SELECT orderId FROM tb_order
+    </select>
+
+
+    <resultMap id="orderDetail" type="com.seiryo.springboot_project.pojo.Tb_orderDetail">
+        <id column="orderId" property="orderId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="price" property="price"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_amount" property="totalAmount"/>
+    </resultMap>
+    <select id="selectAllOrderDetail" resultMap="orderDetail">
+        SELECT * FROM tb_orderDetail;
+    </select>
+
+    <resultMap id="order" type="com.seiryo.springboot_project.pojo.Tb_order">
+        <id column="orderId" property="orderId"/>
+        <result column="createDtm" property="createDtm"/>
+        <result column="state" property="state"/>
+    </resultMap>
+    <select id="selectAllOrder" resultMap="order">
+        SELECT * FROM tb_order;
+    </select>
+
+</mapper>

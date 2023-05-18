@@ -1,0 +1,131 @@
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    background-color: #ffffff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.button-container {
+    display: flex;
+}
+
+.button-container button {
+    height: 32px;
+    padding: 0 15px;
+    background-color: #1e90ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.button-container button:hover {
+    background-color: #187bcd;
+}
+
+.cart-list {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.item-headings {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 2fr;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 0 10px;
+    margin-bottom: 5px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 2fr;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.cart-item.gray {
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.item-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.item-actions button {
+    background-color: #1e90ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    width: 80px; /* 添加固定宽度 */
+    text-align: center; /* 使文本居中 */
+}
+
+.item-actions button:hover {
+    background-color: #187bcd;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#clear-cart {
+    height: 32px;
+    padding: 0 15px;
+    background-color: #1e90ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#clear-cart:hover {
+    background-color: #187bcd;
+}
+
+.total-amount {
+    font-size: 16px;
+    color: #333;
+}
+
+#cart-total {
+    font-weight: bold;
+}

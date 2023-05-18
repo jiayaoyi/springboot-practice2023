@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>后台订单管理</title>
+    <link rel="stylesheet" th:href="@{/css/adminhomepage.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/adminhomepage.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="title-container">
+            <h2>后台订单管理</h2>
+        </div>
+    </div>
+    <div class="order-list">
+        <div class="order-headings">
+            <span class="order-number">订单编号</span>
+            <span class="order-date">日期</span>
+            <span class="order-status">状态</span>
+            <span class="order-actions">修改状态</span>
+            <span class="order-details">查看明细</span>
+        </div>
+        <div th:each="orderEntry : ${orderDTOMap}" class="order-item gray">
+            <span class="order-number" th:text="${orderEntry.key}"></span>
+            <span class="order-date" th:text="${orderEntry.value.order.createDtm}"></span>
+            <span class="order-status" th:text="${orderEntry.value.order.state}"></span>
+            <div class="order-actions">
+                <button class="status-button">待审核</button>
+                <button class="status-button">已审核</button>
+                <button class="status-button">已付款</button>
+                <button class="status-button">已发货</button>
+            </div>
+            <button class="detail-button" th:attr="data-order-id=${orderEntry.key}">明细</button>
+            <div class="order-detail" th:id="'detail-' + ${orderEntry.key}">
+                <!-- 明细内容 -->
+                <div class="detail-headings">
+                    <span>编号</span>
+                    <span>商品名称</span>
+                    <span>单价</span>
+                    <span>数量</span>
+                    <span>总价</span>
+                </div>
+                <div th:each="detail : ${orderEntry.value.orderDetails}" class="detail-item">
+                    <span th:text="${detail.orderId}"></span>
+                    <span th:text="${detail.productName}"></span>
+                    <span th:text="${detail.price}"></span>
+                    <span th:text="${detail.quantity}"></span>
+                    <span th:text="${detail.totalAmount}"></span>
+                </div>
+                <div class="total-amount">订单总金额: <span class="order-total-amount"></span></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>订单查询主页</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="user-info">
+            <span class="welcome-msg">欢迎使用，<a href="http://localhost:8080/cart/init" id="user-name" th:text="${session.user_name}" style="text-decoration: none; color: inherit;"></a></span>
+            <button id="logout-btn">登出</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h3>订单查询</h3>
+            <div class="order-search">
+                <input type="text" name="order_number" id="order_number" placeholder="输入订单号">
+                <button id="order_search">查询</button>
+            </div>
+        </div>
+        <div class="section">
+            <h3>商品查询</h3>
+            <div class="product-search">
+                <input type="text" name="keyword" placeholder="输入关键字">
+                <select name="product_category">
+                    <option value="">选择商品类别</option>
+                    <option value="category1">不限</option>
+                    <option value="category2">待审核</option>
+                    <option value="category3">已审核</option>
+                    <option value="category4">已付款</option>
+                    <option value="category5">已发货</option>
+                </select>
+                <button id="product_search">查询</button>
+            </div>
+        </div>
+        <div class="section">
+            <h3>商品信息列表</h3>
+            <div class="product-list">
+                <div th:each="shopinfo: ${shopCardsList}" class="product-card">
+                    <img src="img/product-image.jpg" alt="商品图片">
+                    <div class="product-info">
+                        <h4 class="product-name" th:text="${shopinfo.shopName}">商品名称</h4>
+                        <p class="product-price-original" th:text="'原价：¥' + ${shopinfo.oldPrice}">原价：¥100.00</p>
+                        <p class="product-price-current" th:text="'现价：¥' + ${shopinfo.price}">现价：¥80.00</p>
+                        <p class="product-description" th:text="${shopinfo.descr}">
+                            商品描述：这是一个非常好的商品，值得购买。</p>
+                        <button class="add-to-cart" th:attr="data-product-id=${shopinfo.shopId}">加入购物车</button>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <p>总共<span th:text="${totalCount}">0</span>条记录，共<span th:text="${pageCount}">0</span>页</p>
+
+                <button class="page-nav" id="first-page"><<<</button>
+                <button class="page-nav" id="prev-page"><</button>
+                <span th:each="page: ${#numbers.sequence(1, pageCount, 1)}"
+                      th:class="${page == currentPage ? 'page-number current' : 'page-number'}"
+                      th:text="${page}"></span>
+                <button class="page-nav" id="next-page">></button>
+                <button class="page-nav" id="last-page">>>></button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

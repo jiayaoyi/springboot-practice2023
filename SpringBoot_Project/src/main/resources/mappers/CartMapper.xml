@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.seiryo.springboot_project.dao.CartMapper">
+    <insert id="insertIntoCart" parameterType="com.seiryo.springboot_project.pojo.Tb_cartItem">
+        INSERT INTO tb_cartInfo (product_id, product_name, price, quantity, total_amount,user_name)
+        VALUES (#{productId}, #{productName}, #{price}, #{quantity}, #{totalAmount},#{userName})
+    </insert>
+
+    <resultMap id="cartItemsResultMap" type="com.seiryo.springboot_project.pojo.Tb_cartItem">
+        <id column="ID" property="id"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="price" property="price"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_amount" property="totalAmount"/>
+        <result column="user_name" property="userName"/>
+    </resultMap>
+
+    <select id="queryCartItemsByUserName" resultMap="cartItemsResultMap">
+        SELECT * FROM tb_cartInfo WHERE user_name=#{userName}
+    </select>
+
+    <update id="updateQuantityByUserNameAndCartId">
+        UPDATE tb_cartInfo SET quantity = #{newQuantity},total_amount = (#{newQuantity}*price) WHERE user_name = #{userName} AND id = #{cartId}
+    </update>
+
+    <delete id="deleteCartByUserNameAndCartId">
+        DELETE FROM tb_cartInfo WHERE user_name = #{userName} AND id = #{cartId}
+    </delete>
+
+    <delete id="clearCartByUserName">
+        DELETE FROM tb_cartInfo WHERE user_name = #{userName}
+    </delete>
+
+</mapper>

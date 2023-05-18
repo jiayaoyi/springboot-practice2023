@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车订单</title>
+    <link rel="stylesheet" href="/css/cart.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cart.js}"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="title-container">
+            <h2>购物车商品列表</h2>
+        </div>
+        <div class="button-container">
+            <button id="create-order" class="button">生成订单</button>
+            <button id="continue-shopping" class="button">返回继续购物</button>
+        </div>
+    </div>
+    <!-- 在页面中使用Thymeleaf语法遍历购物车列表 -->
+    <div class="cart-list">
+        <div class="item-headings">
+            <span class="item-number">编号</span>
+            <span class="item-name">商品名称</span>
+            <span class="item-price">单价</span>
+            <span class="item-quantity">数量</span>
+            <span class="item-total">总金额</span>
+            <span class="item-actions">操作</span>
+        </div>
+        <div th:each="cartItem : ${cartItemList}" class="cart-item gray">
+            <span class="item-number" th:text="${cartItem.id}"></span>
+            <span class="item-name" th:text="${cartItem.productName}"></span>
+            <span class="item-price" th:text="${cartItem.price}"></span>
+            <span class="item-quantity" th:text="${cartItem.quantity}"></span>
+            <span class="item-total" th:text="${cartItem.totalAmount}"></span>
+            <div class="item-actions">
+                <button class="edit-quantity" >修改数量</button>
+                <button class="remove-item"  th:attr="data-item-id=${cartItem.id}">退回商品</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        <button id="clear-cart" class="button">清空购物车</button>
+        <div class="total-amount" >购物车总金额：<span id="cart-total">0</span></div>
+    </div>
+</div>
+</body>
+</html>
